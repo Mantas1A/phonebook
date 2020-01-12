@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Phonebook</h1>
+
+To start register or login
+
+    {% if app.user %}
+    {% else %}
+        <div class="mb-3"><a href="{{ path('app_register') }}">Register</a></div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phone index{% endblock %}
+
+{% block body %}
+    <h1>Phone Book</h1>
+
+    <h2>Your phone numbers</h2>
+    <div>
+        <a href="{{ path('phone_new') }}">Create new</a>
+    </div>
+
+    {% if phones %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Contact name</th>
+                <th>Phone_number</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for phone in phones %}
+            <tr>
+                <td>{{ phone.name }}</td>
+                <td>{{ phone.phoneNumber }}</td>
+                <td>
+                    <a href="{{ path('phone_show', {'id': phone.id}) }}">show</a>
+                    <a href="{{ path('phone_edit', {'id': phone.id}) }}">edit</a>
+                    <a href="{{ path('share', {'id': phone.id}) }}">share</a>
+                </td>
+            </tr>
+            {% for share in phone.share %}
+                <tr>
+                    <td>You are sharing this contact with:</td>
+                    <td>{{ share.user.name }}</td>
+                    <td>{{ include('share/_delete_form.html.twig') }}</td>
+                </tr>
+            {% endfor %}
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+        <small colspan="5">no records found</small>
+{% endif %}
+
+    <h2>Shared phone numbers</h2>
+
+    {% if shared %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Contact name</th>
+            <th>Phone_number</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for share in shared %}
+            <tr>
+                <td>{{ share.name }}</td>
+                <td>{{ share.phoneNumber }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <small colspan="5">no records found</small>
+    {% endif %}
+
+{% endblock %}

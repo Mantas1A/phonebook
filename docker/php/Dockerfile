@@ -22,3 +22,4 @@ COPY apps/phonebook /usr/src/app
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 RUN chmod -R 777 /usr/src/app
+RUN chmod -R 777 /usr/local/bin
